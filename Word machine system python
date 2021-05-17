@@ -1,0 +1,23 @@
+def solution(S):
+    mystack=[]
+    for i in S.split(' '):
+        if i.isdigit():
+            mystack.append(int(i))
+        elif i == '+' and len(mystack)>1 and (mystack[-1]+mystack[-2])<=((2**20)-1):
+            toptwosum = mystack[-1]+mystack[-2]
+            mystack.pop()
+            mystack.pop()
+            mystack.append(toptwosum)
+        elif i == '-' and (len(mystack)>1) and ((mystack[-1]-mystack[-2])>0):
+            toptwodif=mystack[-1]-mystack[-2]
+            mystack.pop()
+            mystack.pop()
+            mystack.append(toptwodif)
+        elif i =='POP'and len(mystack)>0:
+            mystack.pop()
+        elif i =='DUP'and len(mystack)>0:
+            mystack.append(mystack[-1])
+        else:
+            return -1
+            break
+    return mystack[-1]
